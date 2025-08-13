@@ -1,0 +1,47 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  body {
+    @apply bg-slate-50 dark:bg-gray-900;
+  }
+}
+
+/* Custom Bobbing Animation for Bot */
+@keyframes bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.animate-bob {
+  animation: bob 3s ease-in-out infinite;
+}
+
+/* Custom Scrollbar for Webkit Browsers */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background-color: theme("colors.gray.400");
+  border-radius: 20px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: theme("colors.gray.500");
+}
+.dark ::-webkit-scrollbar-thumb {
+  background-color: theme("colors.gray.600");
+}
+.dark ::-webkit-scrollbar-thumb:hover {
+  background-color: theme("colors.gray.500");
+}
