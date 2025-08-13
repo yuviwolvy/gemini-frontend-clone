@@ -4,6 +4,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { login } from "../../store/auth-slice";
 import { fetchCountries } from "../../api/countries";
 import { type Country } from "../../types";
 import { Phone, KeyRound } from "lucide-react";
@@ -26,6 +28,7 @@ type OtpFormInputs = z.infer<typeof otpSchema>;
 
 const LoginForm: React.FC = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [isLoginView, setIsLoginView] = useState<boolean>(true);
   const [isOtpSent, setIsOtpSent] = useState<boolean>(false);
   const [countries, setCountries] = useState<Country[]>([]);
@@ -78,7 +81,8 @@ const LoginForm: React.FC = () => {
         : "Sign Up Successful! Redirecting...";
       toast.success(successMessage, { id: "verify-toast" });
 
-      localStorage.setItem("auth-token", `dummy-token-${Date.now()}`);
+      localStorage.setItem("auth-token", "dummy-token-" + Date.now());
+      dispatch(login());
       setSubmitting(false);
 
       navigate("/dashboard");
